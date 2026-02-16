@@ -1,21 +1,23 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Activity, ShieldCheck, ExternalLink } from "lucide-react";
+import { Activity, ShieldCheck } from "lucide-react";
 
 const projects = [
   {
     icon: Activity,
     title: "Patient Management Using RFID",
+    subtitle: "Capstone Project",
     description:
-      "Healthcare monitoring system with RFID integration for real-time patient tracking and medical record management.",
-    tags: ["Healthcare", "RFID", "IoT", "Medical Tracking"],
+      "Monitored patient information, diagnosis prescription, and encounters within health care organizations by leveraging RFID Tags. Analysed hospital equipment needed for patient while supporting patient in ambulance using RFID Tags. Led effective integration with Computer based medical record file tracking application system and monitored patient medical record file.",
+    tags: ["Healthcare", "RFID", "IoT", "Medical Tracking", "Record Management"],
   },
   {
     icon: ShieldCheck,
-    title: "Self-Defending Security System",
+    title: "Self Defensing Security System for Human",
+    subtitle: "Embedded Systems Project",
     description:
-      "Embedded security solution using Arduino-based breach detection for automated threat response.",
-    tags: ["Arduino", "Security", "Embedded", "IoT"],
+      "Delivered improved information system security by using EMBEDDED technology. Protected system from threats by identifying condition of security breach and delivering security plans while using Arduino Uno.",
+    tags: ["Arduino", "Security", "Embedded", "IoT", "Threat Detection"],
   },
 ];
 
@@ -33,7 +35,7 @@ const Projects = () => {
         >
           <p className="text-primary text-sm uppercase tracking-[0.3em] mb-2">My Work</p>
           <h2 className="font-display text-4xl lg:text-5xl font-bold mb-16">
-            Featured <span className="gradient-text">Projects</span>
+            IT <span className="gradient-text">Projects</span>
           </h2>
         </motion.div>
 
@@ -53,11 +55,12 @@ const Projects = () => {
                   <project.icon size={28} className="text-primary" />
                 </div>
 
-                <h3 className="font-display text-2xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
+                <h3 className="font-display text-2xl font-bold mb-1 group-hover:text-primary transition-colors duration-300">
                   {project.title}
                 </h3>
+                <p className="text-primary/70 text-sm font-medium mb-4">{project.subtitle}</p>
 
-                <p className="text-muted-foreground mb-5 leading-relaxed">{project.description}</p>
+                <p className="text-muted-foreground mb-5 leading-relaxed text-sm">{project.description}</p>
 
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
