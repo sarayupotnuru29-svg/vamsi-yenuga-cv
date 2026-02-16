@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Download, Mail, Briefcase } from "lucide-react";
+import { Mail, Briefcase } from "lucide-react";
 import profileImg from "@/assets/vamsi_pic.jpeg";
 
 const typingTexts = [
-  "Senior IT Support Analyst",
+  "IT Support Analyst (L2/L3)",
   "Network & Cloud Specialist",
-  "L2/L3 Support Expert",
+  "Enterprise Infrastructure Expert",
 ];
 
 const Hero = () => {
@@ -40,14 +40,12 @@ const Hero = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Floating shapes */}
       <div className="floating-shape w-72 h-72 -top-20 -right-20 animate-float" />
       <div className="floating-shape w-96 h-96 -bottom-32 -left-32 animate-float-slow" />
       <div className="floating-shape w-48 h-48 top-1/3 right-1/4 animate-pulse-glow" />
 
       <div className="section-container w-full relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left Text */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
@@ -114,7 +112,6 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Image */}
           <motion.div
             initial={{ opacity: 0, x: 60, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
