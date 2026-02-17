@@ -40,7 +40,7 @@ const ResumeDownload = () => {
 
             <div className="flex flex-wrap gap-4 justify-center">
               <a
-                href="/Vamsi_Yenuga_Resume.pdf"
+                href="/public/Vamsi_Yenuga_CV.pdf"
                 download
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-semibold text-lg transition-all duration-300 hover:shadow-[0_0_40px_hsl(var(--primary)/0.4)] hover:-translate-y-1 group"
               >
