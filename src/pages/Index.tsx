@@ -1,11 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Skills from "@/components/Skills";
+import Certifications from "@/components/Certifications";
 import Projects from "@/components/Projects";
-import Education from "@/components/Education";
 import Contact from "@/components/Contact";
+import ResumeDownload from "@/components/ResumeDownload";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 
@@ -16,12 +16,12 @@ const Index = () => {
       <Navbar />
       <main className="lg:pl-24">
         <Hero />
-        <About />
         <Experience />
         <Skills />
+        <Certifications />
         <Projects />
-        <Education />
         <Contact />
+        <ResumeDownload />
       </main>
       <Footer />
     </div>

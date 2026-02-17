@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Network, Cloud, Wrench, Users, Monitor, Shield } from "lucide-react";
 
 const skillCategories = [
@@ -35,50 +35,76 @@ const skillCategories = [
   },
 ];
 
+const technicalProfile = [
+  "ServiceNow", "Jira", "Soap UI", "Selenium", "Postman", "Virtual Servers",
+  "Hyper-V", "MDM", "Azure AD", "Citrix", "Putty",
+];
+
 const Skills = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [hoveredCat, setHoveredCat] = useState<number | null>(null);
 
   return (
-    <section id="skills" className="py-24 lg:py-32 relative">
+    <section id="skills" className="slide-section py-20">
+      <span className="section-number">03</span>
       <div className="floating-shape w-80 h-80 bottom-0 left-0 animate-float" />
+
       <div className="section-container relative z-10" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
+        <motion.div initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
           <p className="text-primary text-sm uppercase tracking-[0.3em] mb-2">What I know</p>
-          <h2 className="font-display text-4xl lg:text-5xl font-bold mb-16">
+          <h2 className="font-display text-4xl lg:text-5xl font-bold mb-4">
             Technical <span className="gradient-text">Skills</span>
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Technical profile toolbar */}
+        <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.3 }}
+          className="flex flex-wrap gap-2 mb-12">
+          {technicalProfile.map((tool, i) => (
+            <motion.span key={tool}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.4 + i * 0.05 }}
+              className="px-4 py-2 rounded-lg text-xs font-medium border border-primary/20 text-primary bg-primary/5 hover:bg-primary/10 transition-colors cursor-default">
+              {tool}
+            </motion.span>
+          ))}
+        </motion.div>
+
+        {/* Skill categories - bento grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {skillCategories.map((cat, i) => (
             <motion.div
               key={cat.title}
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-              className="glass-card-hover p-6"
+              onMouseEnter={() => setHoveredCat(i)}
+              onMouseLeave={() => setHoveredCat(null)}
+              className="glass-card-hover p-6 relative overflow-hidden group"
             >
-              <div className="flex items-center gap-3 mb-5">
-                <div className="p-2.5 rounded-lg bg-primary/10">
-                  <cat.icon size={22} className="text-primary" />
-                </div>
-                <h3 className="font-display text-lg font-bold">{cat.title}</h3>
-              </div>
+              {/* Background glow on hover */}
+              <div className={`absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent transition-opacity duration-500 ${hoveredCat === i ? 'opacity-100' : 'opacity-0'}`} />
 
-              <div className="flex flex-wrap gap-2">
-                {cat.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1.5 rounded-full text-xs border border-border bg-secondary/50 text-muted-foreground transition-all duration-300 hover:border-primary hover:text-primary hover:bg-primary/5"
-                  >
-                    {skill}
-                  </span>
-                ))}
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="p-2.5 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
+                    <cat.icon size={22} className="text-primary" />
+                  </div>
+                  <h3 className="font-display text-lg font-bold">{cat.title}</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {cat.skills.map((skill, si) => (
+                    <motion.span key={skill}
+                      initial={{ opacity: 0 }}
+                      animate={inView ? { opacity: 1 } : {}}
+                      transition={{ delay: 0.5 + si * 0.05 }}
+                      className="px-3 py-1.5 rounded-full text-xs border border-border bg-secondary/50 text-muted-foreground transition-all duration-300 hover:border-primary hover:text-primary hover:bg-primary/5">
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}

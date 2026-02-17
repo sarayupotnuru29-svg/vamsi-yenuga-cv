@@ -71,10 +71,17 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
   }
 }
 
 @layer components {
+  /* Full-screen slide section */
+  .slide-section {
+    @apply min-h-screen relative flex items-center overflow-hidden;
+    scroll-snap-align: start;
+  }
+
   .glass-card {
     @apply rounded-xl border;
     background: linear-gradient(145deg, hsl(var(--glass-bg)), hsl(222 47% 11% / 0.4));
@@ -106,11 +113,11 @@
   }
 
   .section-container {
-    @apply max-w-7xl mx-auto px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-6 lg:px-8 w-full;
   }
 
   .floating-shape {
-    @apply absolute rounded-full opacity-20 blur-3xl;
+    @apply absolute rounded-full opacity-20 blur-3xl pointer-events-none;
     background: hsl(var(--primary));
   }
 
@@ -131,23 +138,52 @@
     box-shadow: 0 0 15px hsl(var(--primary) / 0.4);
   }
 
-  .nav-link {
-    @apply relative text-muted-foreground transition-colors duration-300 hover:text-foreground;
+  /* Section number indicator */
+  .section-number {
+    @apply absolute top-8 right-8 font-display text-8xl font-bold opacity-5 select-none pointer-events-none;
+    color: hsl(var(--primary));
   }
 
-  .nav-link.active {
-    @apply text-primary;
+  /* Slide indicator dots */
+  .slide-indicator {
+    @apply w-2 h-2 rounded-full transition-all duration-300 cursor-pointer;
+    background: hsl(var(--muted-foreground) / 0.3);
   }
 
-  .nav-link::after {
-    content: '';
-    @apply absolute bottom-0 left-0 w-full h-0.5 origin-bottom-right transition-transform duration-300 scale-x-0;
+  .slide-indicator.active {
+    @apply w-8;
     background: hsl(var(--primary));
+    box-shadow: 0 0 12px hsl(var(--primary) / 0.5);
   }
 
-  .nav-link:hover::after,
-  .nav-link.active::after {
-    @apply origin-bottom-left scale-x-100;
+  /* Horizontal scroll container */
+  .horizontal-scroll {
+    @apply flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory;
+    scrollbar-width: none;
+  }
+
+  .horizontal-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .horizontal-scroll > * {
+    @apply snap-center shrink-0;
+  }
+
+  /* Tabs */
+  .tab-btn {
+    @apply px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .tab-btn.active {
+    background: hsl(var(--primary) / 0.15);
+    color: hsl(var(--primary));
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.1);
+  }
+
+  .tab-btn:hover:not(.active) {
+    color: hsl(var(--foreground));
   }
 }
 
@@ -168,3 +204,24 @@
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary) / 0.5);
 }
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(3deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.05); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+.animate-typing-cursor { animation: pulse 1s ease-in-out infinite; }
